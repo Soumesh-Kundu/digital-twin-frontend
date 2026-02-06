@@ -35,7 +35,7 @@ export const useSocketStore = create<SocketState & SocketActions>((set, get) => 
       return;
     }
 
-    const newSocket = io(process.env.NEXT_PUBLIC_SERVER_URL as string, {
+    const newSocket = io(process.env.NEXT_PUBLIC_SERVER_URL as string + "/backend", {
       transports: ["websocket", "polling"],
       autoConnect: true,
       reconnection: true,
