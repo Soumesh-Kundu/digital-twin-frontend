@@ -20,6 +20,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
+  useSecureCookies:false,
   secret: process.env.NEXTAUTH_SECRET!,
   session: {
     strategy: "jwt",
@@ -56,10 +57,12 @@ export const authOptions: NextAuthOptions = {
         const user = await db.user.findFirst({
           where: { email: credentials.email },
         });
+        console.log("User:", user);
         if (!user || !user?.password) {
           return null;
         }
         const verified = await compare(credentials.password, user.password);
+        console.log("User:", user, "Verified:", verified);
         if (!verified) {
           return null;
         }
